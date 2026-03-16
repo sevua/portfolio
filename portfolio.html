@@ -1,0 +1,1778 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Всеволод Леонов — Front-end Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --bg: #0c0e13;
+        --bg2: #111318;
+        --bg3: #161820;
+        --accent: #4f8ef7;
+        --accent2: #7eb3ff;
+        --text: #e8eaf0;
+        --text2: #9aa0b2;
+        --text3: #5c6278;
+        --border: rgba(255, 255, 255, 0.07);
+        --card-bg: rgba(255, 255, 255, 0.03);
+        --font-head: "Syne", sans-serif;
+        --font-body: "DM Sans", sans-serif;
+        --ls-base-nav: -0.3px;
+        --ls-base-title: -1.5px;
+        --ls-base-hero: -3px;
+        --ls-base-skill: 1.5px;
+        --fw-title: 800;
+        --fw-nav: 500;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      html[lang="ru"] {
+        --ls-adjust: -0.4px;
+        --fw-title: 800;
+      }
+
+      html[lang="en"] {
+        --ls-adjust: 0.1px;
+        --ls-base-nav: 0.2px;
+        --ls-base-title: -1px;
+        --ls-base-hero: -2.2px;
+        --ls-base-skill: 0.8px;
+        --fw-title: 750;
+      }
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--font-body);
+        font-size: 16px;
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 0;
+        opacity: 0.4;
+      }
+
+      /* NAV */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 60px;
+        gap: 20px;
+        background: rgba(12, 14, 19, 0.88);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border);
+        transition: padding 0.3s;
+      }
+      nav.scrolled {
+        padding: 13px 60px;
+      }
+      .nav-logo {
+        font-family: var(--font-head);
+        font-weight: 600;
+        font-size: 13px;
+        color: var(--text2);
+        text-decoration: none;
+        letter-spacing: 0.2px;
+        white-space: nowrap;
+        flex-shrink: 0;
+        transition: color 0.2s;
+      }
+      .nav-logo:hover {
+        color: var(--text);
+      }
+      .nav-links {
+        display: flex;
+        gap: 32px;
+        list-style: none;
+      }
+      .nav-links a {
+        color: var(--text2);
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 500;
+        letter-spacing: 0.3px;
+        transition: color 0.2s;
+        position: relative;
+        letter-spacing: calc(var(--ls-base-nav) + var(--ls-adjust));
+        font-weight: var(--fw-nav);
+      }
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: -3px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: var(--accent);
+        transition: width 0.3s;
+      }
+      .nav-links a:hover {
+        color: var(--text);
+      }
+      .nav-links a:hover::after {
+        width: 100%;
+      }
+
+      /* LANG SWITCHER */
+      .lang-switcher {
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        overflow: hidden;
+      }
+      .lang-btn {
+        padding: 6px 13px;
+        font-family: var(--font-body);
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        color: var(--text3);
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        transition:
+          color 0.2s,
+          background 0.2s;
+      }
+      .lang-btn.active {
+        background: var(--accent);
+        color: #fff;
+      }
+      .lang-btn:not(.active):hover {
+        color: var(--text);
+        background: rgba(255, 255, 255, 0.04);
+      }
+      .lang-sep {
+        width: 1px;
+        background: var(--border);
+        height: 28px;
+        flex-shrink: 0;
+      }
+
+      section {
+        position: relative;
+        z-index: 1;
+      }
+
+      /* HERO */
+      #hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding: 120px 60px 80px;
+        overflow: hidden;
+      }
+      .hero-bg-glow {
+        position: absolute;
+        top: -200px;
+        right: -200px;
+        width: 700px;
+        height: 700px;
+        background: radial-gradient(
+          circle,
+          rgba(79, 142, 247, 0.12) 0%,
+          transparent 70%
+        );
+        pointer-events: none;
+      }
+      .hero-bg-glow2 {
+        position: absolute;
+        bottom: -100px;
+        left: -100px;
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(
+          circle,
+          rgba(126, 179, 255, 0.06) 0%,
+          transparent 70%
+        );
+        pointer-events: none;
+      }
+      .hero-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        width: 100%;
+      }
+
+      .hero-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--accent);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 28px;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeUp 0.7s 0.2s forwards;
+      }
+      .hero-label::before {
+        content: "";
+        width: 24px;
+        height: 1px;
+        background: var(--accent);
+      }
+      .otw-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #4ade80;
+        box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.5);
+        animation: pulse-green 2s infinite;
+        flex-shrink: 0;
+      }
+      @keyframes pulse-green {
+        0% {
+          box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.5);
+        }
+        70% {
+          box-shadow: 0 0 0 7px rgba(74, 222, 128, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(74, 222, 128, 0);
+        }
+      }
+
+      .hero-name {
+        font-family: var(--font-head);
+        font-size: clamp(52px, 8vw, 96px);
+        font-weight: bold;
+        line-height: 0.95;
+        letter-spacing: -3px;
+        color: var(--text);
+        margin-bottom: 28px;
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeUp 0.7s 0.35s forwards;
+        letter-spacing: calc(var(--ls-base-hero) + var(--ls-adjust));
+      }
+      .hero-name .accent {
+        color: var(--accent);
+      }
+
+      .hero-desc {
+        max-width: 620px;
+        font-size: 17px;
+        line-height: 1.8;
+        color: var(--text2);
+        margin-bottom: 48px;
+        font-weight: 300;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeUp 0.7s 0.5s forwards;
+      }
+      .hero-desc strong {
+        color: var(--text);
+        font-weight: 500;
+      }
+
+      .hero-cta {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeUp 0.7s 0.65s forwards;
+      }
+      .btn-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 14px 28px;
+        background: var(--accent);
+        color: #fff;
+        font-family: var(--font-body);
+        font-size: 14px;
+        font-weight: 500;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        text-decoration: none;
+        transition:
+          background 0.2s,
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+      .btn-primary:hover {
+        background: var(--accent2);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 14px rgba(79, 142, 247, 0.16);
+      }
+      .btn-outline {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 14px 28px;
+        background: transparent;
+        color: var(--text2);
+        font-family: var(--font-body);
+        font-size: 14px;
+        font-weight: 400;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        cursor: pointer;
+        text-decoration: none;
+        transition:
+          border-color 0.2s,
+          color 0.2s,
+          transform 0.2s;
+      }
+      .btn-outline:hover {
+        border-color: var(--accent);
+        color: var(--text);
+        transform: translateY(-2px);
+      }
+
+      /* SECTION COMMON */
+      .section-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 100px 60px;
+      }
+      .section-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 11px;
+        font-weight: 500;
+        color: var(--accent);
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+      }
+      .section-label::before {
+        content: "";
+        width: 20px;
+        height: 1px;
+        background: var(--accent);
+      }
+      .section-title {
+        font-family: var(--font-head);
+        font-size: clamp(32px, 4vw, 52px);
+        font-weight: 800;
+        letter-spacing: -1.5px;
+        line-height: 1.05;
+        color: var(--text);
+        margin-bottom: 60px;
+        letter-spacing: calc(var(--ls-base-title) + var(--ls-adjust));
+        font-weight: var(--fw-title);
+      }
+      .section-title em {
+        font-style: normal;
+        color: var(--accent);
+      }
+
+      /* ABOUT */
+      #about {
+        background: var(--bg2);
+      }
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: start;
+      }
+      .about-text {
+        font-size: 16px;
+        line-height: 1.8;
+        color: var(--text2);
+        font-weight: 300;
+      }
+      .about-text p + p {
+        margin-top: 18px;
+      }
+      .about-text strong {
+        color: var(--text);
+        font-weight: 500;
+      }
+      .about-contacts {
+        margin-top: 36px;
+      }
+      .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--border);
+        font-size: 14px;
+      }
+      .contact-label {
+        color: var(--text3);
+        width: 90px;
+        flex-shrink: 0;
+      }
+      .contact-value {
+        color: var(--text2);
+      }
+      .contact-value a {
+        color: var(--accent);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .contact-value a:hover {
+        color: var(--accent2);
+      }
+      .about-stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5px;
+      }
+      .stat-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        padding: 32px 28px;
+        transition:
+          border-color 0.3s,
+          background 0.3s;
+      }
+      .stat-card:hover {
+        border-color: rgba(79, 142, 247, 0.3);
+        background: rgba(79, 142, 247, 0.04);
+      }
+      .stat-number {
+        font-family: var(--font-head);
+        font-size: 48px;
+        font-weight: 800;
+        color: var(--accent);
+        letter-spacing: -2px;
+        line-height: 1;
+        margin-bottom: 8px;
+      }
+      .stat-label {
+        font-size: 13px;
+        color: var(--text3);
+        line-height: 1.4;
+      }
+
+      /* EXPERIENCE */
+      #experience {
+        background: var(--bg);
+      }
+      .exp-list {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+      .exp-item {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        padding: 40px 48px;
+        transition:
+          border-color 0.3s,
+          background 0.3s;
+        position: relative;
+        overflow: hidden;
+      }
+      .exp-item::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background: var(--accent);
+        transform: scaleY(0);
+        transform-origin: bottom;
+        transition: transform 0.4s;
+      }
+      .exp-item:hover::before {
+        transform: scaleY(1);
+      }
+      .exp-item:hover {
+        border-color: rgba(79, 142, 247, 0.2);
+        background: rgba(79, 142, 247, 0.03);
+      }
+      .exp-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 8px;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .exp-role {
+        font-family: var(--font-head);
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--text);
+        letter-spacing: -0.5px;
+      }
+      .exp-meta {
+        text-align: right;
+      }
+      .exp-period {
+        font-size: 13px;
+        color: var(--text3);
+      }
+      .exp-duration {
+        font-size: 12px;
+        color: var(--accent);
+        font-weight: 500;
+        letter-spacing: 0.5px;
+      }
+      .exp-company {
+        font-size: 14px;
+        color: var(--accent);
+        margin-bottom: 4px;
+      }
+      .exp-location {
+        font-size: 13px;
+        color: var(--text3);
+        margin-bottom: 24px;
+      }
+      .exp-bullets {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .exp-bullets li {
+        display: flex;
+        gap: 12px;
+        font-size: 14px;
+        color: var(--text2);
+        line-height: 1.6;
+      }
+      .exp-bullets li::before {
+        content: "—";
+        color: var(--accent);
+        opacity: 0.5;
+        flex-shrink: 0;
+      }
+
+      /* SKILLS */
+      #skills {
+        background: var(--bg2);
+      }
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 5px;
+      }
+      .skill-group {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        padding: 36px 40px;
+        transition: border-color 0.3s;
+      }
+      .skill-group:hover {
+        border-color: rgba(79, 142, 247, 0.25);
+      }
+      .skill-group-title {
+        font-family: var(--font-head);
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--accent);
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+        padding-bottom: 14px;
+        border-bottom: 1px solid var(--border);
+        letter-spacing: calc(var(--ls-base-skill) + var(--ls-adjust));
+      }
+      .skill-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+      }
+      .skill-tag {
+        display: inline-block;
+        padding: 6px 14px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        font-size: 13px;
+        color: var(--text2);
+        transition:
+          border-color 0.2s,
+          color 0.2s,
+          background 0.2s;
+        cursor: default;
+      }
+      .skill-tag:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+        background: rgba(79, 142, 247, 0.06);
+      }
+
+      /* PROJECTS */
+      #projects {
+        background: var(--bg);
+      }
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+        gap: 5px;
+      }
+      .project-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        overflow: hidden;
+        transition:
+          border-color 0.3s,
+          transform 0.3s;
+        display: flex;
+        flex-direction: column;
+      }
+      .project-card:hover {
+        border-color: rgba(79, 142, 247, 0.3);
+        transform: translateY(-4px);
+      }
+      .project-img {
+        width: 100%;
+        aspect-ratio: 16/9;
+        background: var(--bg3);
+        position: relative;
+        overflow: hidden;
+      }
+      .project-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s;
+      }
+      .project-card:hover .project-img img {
+        transform: scale(1.04);
+      }
+      .project-img-placeholder {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(
+          135deg,
+          var(--bg3) 0%,
+          rgba(79, 142, 247, 0.08) 100%
+        );
+        color: var(--text3);
+        font-size: 13px;
+        font-family: var(--font-head);
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+      .project-img-placeholder img {
+        background-color: black;
+        opacity: 69%;
+        transition: 0.3s ease;
+      }
+      .project-img-placeholder img:hover {
+        opacity: 100%;
+      }
+
+      .project-badge {
+        position: absolute;
+        top: 14px;
+        left: 14px;
+        padding: 5px 11px; /* чуть больше отступов */
+        font-size: 11px; /* было 10 → чуть читаемее */
+        font-weight: 700; /* было 600 → жирнее */
+        letter-spacing: 0.6px;
+        text-transform: uppercase;
+        border-radius: 4px; /* чуть мягче углы */
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4); /* лёгкая тень → отрывает от фона */
+        z-index: 2; /* на всякий случай выше картинки */
+      }
+
+      /* Коммерческий */
+      .badge-commercial {
+        background: rgba(79, 142, 247, 0.38); /* было 0.2 → заметнее */
+        color: #d0e4ff; /* светлее белого, но не чисто белый */
+        border: 1px solid rgba(79, 142, 247, 0.55);
+      }
+
+      /* Пет-проект */
+      .badge-pet {
+        background: rgba(107, 200, 138, 0.35); /* было 0.15 → ярче */
+        color: #e0ffe6; /* очень светлый зелёный */
+        border: 1px solid rgba(107, 200, 138, 0.5);
+      }
+      .project-body {
+        padding: 28px 28px 24px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .project-title {
+        font-family: var(--font-head);
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--text);
+        letter-spacing: -0.3px;
+        margin-bottom: 10px;
+      }
+      .project-desc {
+        font-size: 13px;
+        color: var(--text2);
+        line-height: 1.65;
+        font-weight: 300;
+        margin-bottom: 18px;
+        flex: 1;
+      }
+      .project-tech {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-bottom: 22px;
+      }
+      .tech-pill {
+        padding: 3px 10px;
+        background: rgba(79, 142, 247, 0.08);
+        border: 1px solid rgba(79, 142, 247, 0.15);
+        border-radius: 3px;
+        font-size: 11px;
+        color: var(--accent2);
+      }
+      .project-links {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      }
+      .project-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 13px;
+        color: var(--text2);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .project-link:hover {
+        color: var(--accent);
+      }
+      .project-link svg {
+        width: 14px;
+        height: 14px;
+      }
+      .project-link-primary {
+        color: var(--accent);
+        font-weight: 500;
+      }
+      .project-link-divider {
+        color: var(--text3);
+        opacity: 0.3;
+      }
+
+      /* LANGUAGES */
+      #languages {
+        background: var(--bg2);
+      }
+      .lang-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 5px;
+        max-width: 600px;
+      }
+      .lang-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        padding: 28px 32px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        transition: border-color 0.3s;
+      }
+      .lang-card:hover {
+        border-color: rgba(79, 142, 247, 0.25);
+      }
+      .lang-name {
+        font-family: var(--font-head);
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--text);
+        letter-spacing: -0.3px;
+      }
+      .lang-level {
+        font-size: 12px;
+        color: var(--accent);
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+      }
+
+      /* FOOTER */
+      footer {
+        position: relative;
+        z-index: 1;
+        background: var(--bg);
+        border-top: 1px solid var(--border);
+        padding: 48px 60px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+      .footer-name {
+        font-family: var(--font-head);
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--text);
+        letter-spacing: -0.3px;
+      }
+      .footer-name span {
+        color: var(--accent);
+      }
+      .footer-copy {
+        font-size: 13px;
+        color: var(--text3);
+      }
+      .footer-links {
+        display: flex;
+        gap: 24px;
+      }
+      .footer-links a {
+        font-size: 13px;
+        color: var(--text3);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .footer-links a:hover {
+        color: var(--accent);
+      }
+
+      /* REVEAL */
+      .reveal {
+        opacity: 0;
+        transform: translateY(32px);
+        transition:
+          opacity 0.7s,
+          transform 0.7s;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .reveal-delay-1 {
+        transition-delay: 0.1s;
+      }
+      .reveal-delay-2 {
+        transition-delay: 0.2s;
+      }
+      .reveal-delay-3 {
+        transition-delay: 0.3s;
+      }
+      .reveal-delay-4 {
+        transition-delay: 0.4s;
+      }
+
+      @keyframes fadeUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--bg);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--text3);
+        border-radius: 3px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--accent);
+      }
+
+      @media (max-width: 900px) {
+        nav {
+          padding: 16px 20px;
+        }
+        nav.scrolled {
+          padding: 12px 20px;
+        }
+        .nav-links {
+          display: none;
+        }
+        .nav-logo {
+          font-size: 11px;
+        }
+        #hero {
+          padding: 100px 24px 60px;
+        }
+        .section-inner {
+          padding: 70px 24px;
+        }
+        .about-grid {
+          grid-template-columns: 1fr;
+          gap: 48px;
+        }
+        .skills-grid {
+          grid-template-columns: 1fr;
+        }
+        .exp-item {
+          padding: 28px 24px;
+        }
+        .exp-header {
+          flex-direction: column;
+          gap: 4px;
+        }
+        .exp-meta {
+          text-align: left;
+        }
+        .projects-grid {
+          grid-template-columns: 1fr;
+        }
+        .lang-grid {
+          grid-template-columns: 1fr;
+        }
+        footer {
+          padding: 36px 24px;
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav id="navbar">
+      <a href="#hero" class="nav-logo" data-i18n="nav.logo"
+        >Markup &amp; Front-end Developer</a
+      >
+      <ul class="nav-links">
+        <li><a href="#about" data-i18n="nav.about">О себе</a></li>
+        <li><a href="#experience" data-i18n="nav.exp">Опыт</a></li>
+        <li><a href="#skills" data-i18n="nav.skills">Стек</a></li>
+        <li><a href="#projects" data-i18n="nav.projects">Работы</a></li>
+        <li><a href="#languages" data-i18n="nav.lang">Языки</a></li>
+      </ul>
+      <div class="lang-switcher">
+        <button class="lang-btn active" data-lang="ru">RU</button>
+        <div class="lang-sep"></div>
+        <button class="lang-btn" data-lang="en">EN</button>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <section id="hero">
+      <div class="hero-bg-glow"></div>
+      <div class="hero-bg-glow2"></div>
+      <div class="hero-inner">
+        <div class="hero-label">
+          <span data-i18n="hero.label">Open to work!</span>
+          <span class="otw-dot"></span>
+        </div>
+        <h1 class="hero-name">
+          <span data-i18n="hero.name.first">Всеволод</span><br />
+          <span class="accent" data-i18n="hero.name.last">Леонов</span>
+        </h1>
+        <p class="hero-desc" data-i18n="hero.desc">
+          Создаю <strong>валидную адаптивную вёрстку</strong> и современные
+          <strong>SPA-приложения</strong> на React — от пиксель-перфект
+          лендингов до многостраничных интерфейсов с глобальным стейтом,
+          маршрутизацией и API-интеграциями. Уделяю внимание
+          <strong>Core Web Vitals</strong>, семантике и кроссбраузерной
+          совместимости.
+        </p>
+        <div class="hero-cta">
+          <a href="#projects" class="btn-primary">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <rect x="3" y="3" width="7" height="7" />
+              <rect x="14" y="3" width="7" height="7" />
+              <rect x="14" y="14" width="7" height="7" />
+              <rect x="3" y="14" width="7" height="7" />
+            </svg>
+            <span data-i18n="hero.cta1">Посмотреть работы</span>
+          </a>
+          <a href="https://t.me/k0z9va" target="_blank" class="btn-outline">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+              />
+            </svg>
+            <span data-i18n="hero.cta2">Связаться</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="section-inner">
+        <div class="section-label" data-i18n="about.label">About</div>
+        <h2 class="section-title reveal" data-i18n="about.title">
+          О <em>себе</em>
+        </h2>
+        <div class="about-grid">
+          <div class="reveal reveal-delay-1">
+            <div class="about-text">
+              <p data-i18n="about.p1">
+                Front-end разработчик с
+                <strong>1.5 годами коммерческого опыта</strong> в вёрстке и
+                разработке веб-интерфейсов. Специализируюсь на создании
+                адаптивных лендингов и многостраничных сайтов с поддержкой
+                pixel-perfect и кроссбраузерной совместимости.
+              </p>
+              <p data-i18n="about.p2">
+                Занимаюсь компонентной разработкой на React, умею быстро
+                разбираться в чужом коде и вносить правки. Активно использую
+                AI-инструменты для ускорения рабочих процессов.
+              </p>
+              <p data-i18n="about.p3">
+                Открыт к удалённой работе, ориентирован на результат.
+              </p>
+            </div>
+            <div class="about-contacts">
+              <div class="contact-item">
+                <span class="contact-label" data-i18n="contact.email"
+                  >Email</span
+                >
+                <span class="contact-value"
+                  ><a href="mailto:vsevolodforjob@gmail.com"
+                    >vsevolodforjob@gmail.com</a
+                  ></span
+                >
+              </div>
+              <div class="contact-item">
+                <span class="contact-label">Telegram</span>
+                <span class="contact-value"
+                  ><a href="https://t.me/k0z9va" target="_blank"
+                    >@k0z9va</a
+                  ></span
+                >
+              </div>
+              <div class="contact-item">
+                <span class="contact-label" data-i18n="contact.phone"
+                  >Телефон</span
+                >
+                <span class="contact-value">+995 591 806 294</span>
+              </div>
+              <div class="contact-item">
+                <span class="contact-label" data-i18n="contact.location"
+                  >Локация</span
+                >
+                <span class="contact-value" data-i18n="contact.locationVal"
+                  >Тбилиси, Грузия</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="about-stats reveal reveal-delay-2">
+            <div class="stat-card">
+              <div class="stat-number">1.5</div>
+              <div class="stat-label" data-i18n="stat.exp">
+                Года коммерческого опыта
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number">90+</div>
+              <div class="stat-label">Lighthouse Accessibility</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number">85+</div>
+              <div class="stat-label">PageSpeed Insights</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number">B2</div>
+              <div class="stat-label" data-i18n="stat.en">
+                Уровень английского
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="section-inner">
+        <div class="section-label" data-i18n="exp.label">Experience</div>
+        <h2 class="section-title reveal" data-i18n="exp.title">
+          Опыт <em>работы</em>
+        </h2>
+        <div class="exp-list">
+          <div class="exp-item reveal reveal-delay-1">
+            <div class="exp-header">
+              <div class="exp-role" data-i18n="job1.role">
+                Markup / Frontend Developer
+              </div>
+              <div class="exp-meta">
+                <div class="exp-period" data-i18n="job1.period">
+                  Сент. 2024 — Нояб. 2025
+                </div>
+                <div class="exp-duration" data-i18n="job1.duration">
+                  1 год 3 мес.
+                </div>
+              </div>
+            </div>
+            <div class="exp-company">IT-Delta</div>
+            <div class="exp-location" data-i18n="job1.location">
+              Ростов-на-Дону · Офис
+            </div>
+            <ul class="exp-bullets">
+              <li data-i18n="job1.b1">
+                Разрабатывал и верстал страницы и переиспользуемые компоненты
+                для коммерческих веб-проектов, соблюдая требования pixel-perfect
+                и кроссбраузерной совместимости.
+              </li>
+              <li data-i18n="job1.b2">
+                Улучшил показатели Core Web Vitals (LCP, CLS, FID) за счёт
+                оптимизации загрузки ресурсов и устранения layout shift-ошибок.
+              </li>
+              <li data-i18n="job1.b3">
+                Выявлял и устранял баги вёрстки и JavaScript, в том числе в
+                легаси-кодовой базе, повышая стабильность и читаемость кода.
+              </li>
+              <li data-i18n="job1.b4">
+                Реализовывал клиентский функционал на чистом JS и React:
+                интерактивные формы, динамические блоки, простые SPA-сценарии.
+              </li>
+              <li data-i18n="job1.b5">
+                Придерживался семантической HTML-разметки и ARIA-атрибутов —
+                Lighthouse Accessibility score 90+.
+              </li>
+            </ul>
+          </div>
+          <div class="exp-item reveal reveal-delay-2">
+            <div class="exp-header">
+              <div class="exp-role" data-i18n="job2.role">
+                Freelance Frontend Developer
+              </div>
+              <div class="exp-meta">
+                <div class="exp-period" data-i18n="job2.period">
+                  Дек. 2025 — н.в.
+                </div>
+                <div class="exp-duration" data-i18n="job2.duration">4 мес.</div>
+              </div>
+            </div>
+            <div class="exp-company" data-i18n="job2.company">Фриланс</div>
+            <div class="exp-location" data-i18n="job2.location">Удалённо</div>
+            <ul class="exp-bullets">
+              <li data-i18n="job2.b1">
+                Верстал адаптивные лендинги с нуля под заказчиков из разных ниш,
+                обеспечивая корректное отображение на mobile, tablet и desktop.
+              </li>
+              <li data-i18n="job2.b2">
+                Проводил аудит и правку вёрстки и JS: устранял регрессии,
+                оптимизировал производительность (PageSpeed Insights 85+).
+              </li>
+              <li data-i18n="job2.b3">
+                Разрабатывал SPA-приложения на React + Zustand: настраивал
+                глобальный стейт, маршрутизацию и взаимодействие с внешними API.
+              </li>
+              <li data-i18n="job2.b4">
+                Самостоятельно управлял проектами от постановки задачи до
+                деплоя, соблюдая дедлайны и поддерживая коммуникацию с
+                заказчиками.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="section-inner">
+        <div class="section-label">Tech Stack</div>
+        <h2 class="section-title reveal" data-i18n="skills.title">
+          Технический <em>стек</em>
+        </h2>
+        <div class="skills-grid">
+          <div class="skill-group reveal reveal-delay-1">
+            <div class="skill-group-title">JavaScript Core</div>
+            <div class="skill-tags">
+              <span class="skill-tag">React</span>
+              <span class="skill-tag">Zustand</span>
+              <span class="skill-tag">JavaScript ES6+</span>
+              <span class="skill-tag">TypeScript</span>
+            </div>
+          </div>
+          <div class="skill-group reveal reveal-delay-2">
+            <div class="skill-group-title">Markup Core</div>
+            <div class="skill-tags">
+              <span class="skill-tag">HTML5</span>
+              <span class="skill-tag">CSS3</span>
+              <span class="skill-tag">SASS/SCSS</span>
+              <span class="skill-tag">TailwindCSS</span>
+              <span class="skill-tag" data-i18n="skill.adaptive"
+                >Адаптивная вёрстка</span
+              >
+              <span class="skill-tag">BEM</span>
+            </div>
+          </div>
+          <div class="skill-group reveal reveal-delay-3">
+            <div class="skill-group-title" data-i18n="skills.tools">
+              Инструменты разработки
+            </div>
+            <div class="skill-tags">
+              <span class="skill-tag">Git</span>
+              <span class="skill-tag">Prettier</span>
+              <span class="skill-tag">ESLint</span>
+              <span class="skill-tag">VS Code</span>
+            </div>
+          </div>
+          <div class="skill-group reveal reveal-delay-4">
+            <div class="skill-group-title">AI Tools</div>
+            <div class="skill-tags">
+              <span class="skill-tag">Claude Code</span>
+              <span class="skill-tag">Augment Code</span>
+              <span class="skill-tag">Cursor</span>
+              <span class="skill-tag">Grok</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <div class="section-inner">
+        <div class="section-label">Portfolio</div>
+        <h2 class="section-title reveal" data-i18n="projects.title">
+          Примеры <em>работ</em>
+        </h2>
+
+        <div class="projects-grid">
+          <div class="project-card reveal reveal-delay-1">
+            <div class="project-img">
+              <div class="project-img-placeholder">
+                <img src="./images/flagman.webp" />
+              </div>
+              <span
+                class="project-badge badge-commercial"
+                data-i18n="badge.commercial"
+                >Коммерческий проект</span
+              >
+            </div>
+            <div class="project-body">
+              <h3 class="project-title" data-i18n="proj1.title">Флагман</h3>
+              <p class="project-desc" data-i18n="proj1.desc">
+                Официальный дистрибьютор iiko в Ростове-на-Дону, поставщик ПО и
+                оборудования для автоматизации общепита и ритейла с
+                техподдержкой 24/7.
+              </p>
+              <div class="project-tech">
+                <span class="tech-pill">HTML</span
+                ><span class="tech-pill">CSS</span
+                ><span class="tech-pill">JavaScript</span>
+              </div>
+              <div class="project-links">
+                <a
+                  href="https://flagman-it.ru/"
+                  target="_blank"
+                  class="project-link project-link-primary"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                    />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" y1="14" x2="21" y2="3" />
+                  </svg>
+                  <span data-i18n="proj.view">Посмотреть</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card reveal reveal-delay-2">
+            <div class="project-img">
+              <div class="project-img-placeholder">
+                <img src="./images/css-layout-lab.webp" />
+              </div>
+              <span class="project-badge badge-pet" data-i18n="badge.pet"
+                >Пет-проект</span
+              >
+            </div>
+            <div class="project-body">
+              <h3 class="project-title" data-i18n="proj2.title">
+                CSS Layout Lab
+              </h3>
+              <p class="project-desc" data-i18n="proj2.desc">
+                Интерактивная площадка для создания CSS-макетов — Flexbox, Grid,
+                Position, Box Model и многое другое.
+              </p>
+              <div class="project-tech">
+                <span class="tech-pill">HTML</span
+                ><span class="tech-pill">CSS</span
+                ><span class="tech-pill">JavaScript</span>
+              </div>
+              <div class="project-links">
+                <a
+                  href="https://css-layout-lab.vercel.app"
+                  target="_blank"
+                  class="project-link project-link-primary"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                    />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" y1="14" x2="21" y2="3" />
+                  </svg>
+                  <span data-i18n="proj.view">Посмотреть</span>
+                </a>
+                <a
+                  href="https://github.com/MakarLeonov/css-layout-lab"
+                  target="_blank"
+                  class="project-link"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
+                    />
+                  </svg>
+                  GitHub
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card reveal reveal-delay-3">
+            <div class="project-img">
+              <div class="project-img-placeholder">
+                <img src="./images/it-delta.webp" />
+              </div>
+              <span
+                class="project-badge badge-commercial"
+                data-i18n="badge.commercial"
+                >Коммерческий проект</span
+              >
+            </div>
+            <div class="project-body">
+              <h3 class="project-title" data-i18n="proj3.title">IT-Delta</h3>
+              <p class="project-desc" data-i18n="proj3.desc">
+                Агентство по созданию веб-сайтов, приложений и CRM-систем.
+              </p>
+              <div class="project-tech">
+                <span class="tech-pill">HTML</span
+                ><span class="tech-pill">CSS</span
+                ><span class="tech-pill">JavaScript</span>
+              </div>
+              <div class="project-links">
+                <a
+                  href="https://it-delta.ru/"
+                  target="_blank"
+                  class="project-link project-link-primary"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                    />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" y1="14" x2="21" y2="3" />
+                  </svg>
+                  <span data-i18n="proj.view">Посмотреть</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card reveal reveal-delay-4">
+            <div class="project-img">
+              <div class="project-img-placeholder">
+                <img src="./images/rentycars.webp" />
+              </div>
+              <span
+                class="project-badge badge-commercial"
+                data-i18n="badge.commercial"
+                >Коммерческий проект</span
+              >
+            </div>
+            <div class="project-body">
+              <h3 class="project-title" data-i18n="proj4.title">RentyCars</h3>
+              <p class="project-desc" data-i18n="proj4.desc">
+                Платформа по прокату автомобилей, базирующаяся в ОАЭ и
+                обслуживающая мировые рынки, предоставляет информацию о наличии
+                автомобилей и ценах в режиме реального времени.
+              </p>
+              <div class="project-tech">
+                <span class="tech-pill">HTML</span
+                ><span class="tech-pill">CSS</span
+                ><span class="tech-pill">JavaScript</span>
+              </div>
+              <div class="project-links">
+                <a
+                  href="https://rentycars.com/en"
+                  target="_blank"
+                  class="project-link project-link-primary"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                    />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" y1="14" x2="21" y2="3" />
+                  </svg>
+                  <span data-i18n="proj.view">Посмотреть</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card reveal reveal-delay-5">
+            <div class="project-img">
+              <div class="project-img-placeholder">
+                <img src="./images/uhab.webp" />
+              </div>
+              <span
+                class="project-badge badge-commercial"
+                data-i18n="badge.commercial"
+                >Коммерческий проект</span
+              >
+            </div>
+            <div class="project-body">
+              <h3 class="project-title" data-i18n="proj5.title">UHAB</h3>
+              <p class="project-desc" data-i18n="proj5.desc">
+                Telegram-бот для Uhab.
+              </p>
+              <div class="project-tech">
+                <span class="tech-pill">HTML</span
+                ><span class="tech-pill">CSS</span
+                ><span class="tech-pill">JavaScript</span>
+              </div>
+              <div class="project-links">
+                <a
+                  href="https://uhab.ge/"
+                  target="_blank"
+                  class="project-link project-link-primary"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                    />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" y1="14" x2="21" y2="3" />
+                  </svg>
+                  <span data-i18n="proj.view">Посмотреть</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LANGUAGES -->
+    <section id="languages">
+      <div class="section-inner">
+        <div class="section-label">Languages</div>
+        <h2 class="section-title reveal" data-i18n="lang.title">Языки</h2>
+        <div class="lang-grid">
+          <div class="lang-card reveal reveal-delay-1">
+            <div class="lang-name" data-i18n="lang.ru">Русский</div>
+            <div class="lang-level" data-i18n="lang.ru.level">Родной</div>
+          </div>
+          <div class="lang-card reveal reveal-delay-2">
+            <div class="lang-name">English</div>
+            <div class="lang-level">B2</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-name">
+        <span data-i18n="hero.name.first">Всеволод</span>
+        <span class="accent" data-i18n="hero.name.last">Леонов</span>
+      </div>
+      <div class="footer-copy" data-i18n="footer.copy">
+        © 2026 · Front-end Developer
+      </div>
+      <div class="footer-links">
+        <a href="mailto:vsevolodforjob@gmail.com">Email</a>
+        <a href="https://t.me/k0z9va" target="_blank">Telegram</a>
+      </div>
+    </footer>
+
+    <script>
+      const T = {
+        ru: {
+          "nav.logo": "Markup & Front-end Developer",
+          "nav.about": "О себе",
+          "nav.exp": "Опыт",
+          "nav.skills": "Стек",
+          "nav.projects": "Работы",
+          "nav.lang": "Языки",
+          "hero.label": "Open to work!",
+          "hero.desc":
+            "Создаю <strong>валидную адаптивную вёрстку</strong> и современные <strong>SPA-приложения</strong> на React — от пиксель-перфект лендингов до многостраничных интерфейсов с глобальным стейтом, маршрутизацией и API-интеграциями. Уделяю внимание <strong>Core Web Vitals</strong>, семантике и кроссбраузерной совместимости.",
+          "hero.cta1": "Посмотреть работы",
+          "hero.cta2": "Связаться",
+          "about.label": "About",
+          "about.title": "О <em>себе</em>",
+          "about.p1":
+            "Front-end разработчик с <strong>1.5 годами коммерческого опыта</strong> в вёрстке и разработке веб-интерфейсов. Специализируюсь на создании адаптивных лендингов и многостраничных сайтов с поддержкой pixel-perfect и кроссбраузерной совместимости.",
+          "about.p2":
+            "Занимаюсь компонентной разработкой на React, умею быстро разбираться в чужом коде и вносить правки. Активно использую AI-инструменты для ускорения рабочих процессов.",
+          "about.p3": "Открыт к удалённой работе, ориентирован на результат.",
+          "contact.email": "Email",
+          "contact.phone": "Телефон",
+          "contact.location": "Локация",
+          "contact.locationVal": "Тбилиси, Грузия",
+          "stat.exp": "года коммерческого опыта",
+          "stat.en": "уровень английского",
+          "exp.label": "Experience",
+          "exp.title": "Опыт <em>работы</em>",
+          "job1.role": "Markup / Frontend Developer",
+          "job1.period": "Сент. 2024 — Нояб. 2025",
+          "job1.duration": "1 год 3 мес.",
+          "job1.location": "Ростов-на-Дону · Офис",
+          "job1.b1":
+            "Разрабатывал и верстал страницы и переиспользуемые компоненты для коммерческих веб-проектов, соблюдая требования pixel-perfect и кроссбраузерной совместимости.",
+          "job1.b2":
+            "Улучшил показатели Core Web Vitals (LCP, CLS, FID) за счёт оптимизации загрузки ресурсов и устранения layout shift-ошибок.",
+          "job1.b3":
+            "Выявлял и устранял баги вёрстки и JavaScript, в том числе в легаси-кодовой базе, повышая стабильность и читаемость кода.",
+          "job1.b4":
+            "Реализовывал клиентский функционал на чистом JS и React: интерактивные формы, динамические блоки, простые SPA-сценарии.",
+          "job1.b5":
+            "Придерживался семантической HTML-разметки и ARIA-атрибутов — Lighthouse Accessibility score 90+.",
+          "job2.role": "Freelance Frontend Developer",
+          "job2.period": "Дек. 2025 — н.в.",
+          "job2.duration": "4 мес.",
+          "job2.company": "Фриланс",
+          "job2.location": "Удалённо",
+          "job2.b1":
+            "Верстал адаптивные лендинги с нуля под заказчиков из разных ниш, обеспечивая корректное отображение на mobile, tablet и desktop.",
+          "job2.b2":
+            "Проводил аудит и правку вёрстки и JS: устранял регрессии, оптимизировал производительность (PageSpeed Insights 85+).",
+          "job2.b3":
+            "Разрабатывал SPA-приложения на React + Zustand: настраивал глобальный стейт, маршрутизацию и взаимодействие с внешними API.",
+          "job2.b4":
+            "Самостоятельно управлял проектами от постановки задачи до деплоя, соблюдая дедлайны и поддерживая коммуникацию с заказчиками.",
+          "skills.title": "Технический <em>стек</em>",
+          "skills.tools": "Инструменты разработки",
+          "skill.adaptive": "Адаптивная вёрстка",
+          "projects.title": "Примеры <em>работ</em>",
+          "badge.commercial": "Коммерческий проект",
+          "badge.pet": "Пет-проект",
+          "proj1.title": "Флагман",
+          "proj1.desc":
+            "Официальный дистрибьютор iiko в Ростове-на-Дону, поставщик ПО и оборудования для автоматизации общепита и ритейла с техподдержкой 24/7.",
+          "proj2.title": "CSS Layout Lab",
+          "proj2.desc":
+            "Интерактивная площадка для создания CSS-макетов — Flexbox, Grid, Position, Box Model и многое другое.",
+          "proj3.title": "АйТи-Дельта",
+          "proj3.desc":
+            "Агентство по созданию веб-сайтов, приложений и CRM-систем.",
+          "proj4.title": "RentyCars",
+          "proj4.desc":
+            "Платформа по прокату автомобилей, базирующаяся в ОАЭ и обслуживающая мировые рынки, предоставляет информацию о наличии автомобилей и ценах в режиме реального времени.",
+          "proj5.title": "UHAB",
+          "proj5.desc": "Telegram-бот для Uhab.",
+          "proj.view": "Посмотреть",
+          "lang.title": "Языки",
+          "lang.ru": "Русский",
+          "lang.ru.level": "Родной",
+          "footer.copy": "© 2026 · Front-end Developer",
+          "hero.name.first": "Всеволод",
+          "hero.name.last": "Леонов",
+        },
+        en: {
+          "nav.logo": "Markup & Front-end Developer",
+          "nav.about": "About",
+          "nav.exp": "Experience",
+          "nav.skills": "Stack",
+          "nav.projects": "Projects",
+          "nav.lang": "Languages",
+          "hero.label": "Open to work!",
+          "hero.desc":
+            "I build <strong>valid responsive layouts</strong> and modern <strong>SPA applications</strong> with React — from pixel-perfect landing pages to complex multi-page interfaces with global state, routing and API integrations. I care about <strong>Core Web Vitals</strong>, semantics and cross-browser compatibility.",
+          "hero.cta1": "View projects",
+          "hero.cta2": "Get in touch",
+          "about.label": "About",
+          "about.title": "About <em>me</em>",
+          "about.p1":
+            "Front-end developer with <strong>1.5 years of commercial experience</strong> in markup and web interface development. Specialise in building responsive landing pages and multi-page websites with pixel-perfect accuracy and cross-browser support.",
+          "about.p2":
+            "I work with component-driven React development, can quickly read and modify existing codebases, and actively use AI tools to speed up workflows.",
+          "about.p3": "Open to remote work, focused on delivering results.",
+          "contact.email": "Email",
+          "contact.phone": "Phone",
+          "contact.location": "Location",
+          "contact.locationVal": "Tbilisi, Georgia",
+          "stat.exp": "years of commercial experience",
+          "stat.en": "English level",
+          "exp.label": "Experience",
+          "exp.title": "Work <em>experience</em>",
+          "job1.role": "Markup / Frontend Developer",
+          "job1.period": "Sep 2024 — Nov 2025",
+          "job1.duration": "1 yr 3 mo",
+          "job1.location": "Rostov-on-Don · On-site",
+          "job1.b1":
+            "Built pages and reusable components for commercial web projects, maintaining pixel-perfect accuracy and cross-browser compatibility.",
+          "job1.b2":
+            "Improved Core Web Vitals (LCP, CLS, FID) across multiple projects by optimising resource loading and eliminating layout shift issues.",
+          "job1.b3":
+            "Identified and fixed layout and JavaScript bugs, including in legacy codebases, improving stability and code readability.",
+          "job1.b4":
+            "Implemented client-side functionality in vanilla JS and React: interactive forms, dynamic blocks, simple SPA flows.",
+          "job1.b5":
+            "Followed semantic HTML markup and ARIA attributes — Lighthouse Accessibility score 90+.",
+          "job2.role": "Freelance Frontend Developer",
+          "job2.period": "Dec 2025 — present",
+          "job2.duration": "4 mo",
+          "job2.company": "Freelance",
+          "job2.location": "Remote",
+          "job2.b1":
+            "Built responsive landing pages from scratch for clients across different industries, ensuring correct rendering on mobile, tablet and desktop.",
+          "job2.b2":
+            "Audited and fixed layout and JS issues in existing projects: resolved regressions, optimised performance (PageSpeed Insights 85+).",
+          "job2.b3":
+            "Developed SPA applications with React + Zustand: set up global state, routing and external API integrations.",
+          "job2.b4":
+            "Independently managed projects from brief to deployment, meeting deadlines and communicating with clients in Russian and English.",
+          "skills.title": "Tech <em>stack</em>",
+          "skills.tools": "Dev tools",
+          "skill.adaptive": "Responsive layout",
+          "projects.title": "Selected <em>works</em>",
+          "badge.commercial": "Commercial project",
+          "badge.pet": "Pet project",
+          "proj1.title": "Flagman",
+          "proj1.desc":
+            "Official iiko distributor in Rostov-on-Don, supplier of software and equipment for food service and retail automation with 24/7 technical support.",
+          "proj2.title": "CSS Layout Lab",
+          "proj2.desc":
+            "Interactive CSS layout playground — Flexbox, Grid, Position, Box Model and more.",
+          "proj3.title": "IT-Delta",
+          "proj3.desc":
+            "Agency for the creation of websites, applications, and CRM systems.",
+          "proj4.title": "RentyCars",
+          "proj4.desc":
+            "UAE-based car rental platform serving global markets with real-time availability and pricing.",
+          "proj5.title": "UHAB",
+          "proj5.desc": "Telegram bot for Uhab.",
+          "proj.view": "View live",
+          "lang.title": "Languages",
+          "lang.ru": "Russian",
+          "lang.ru.level": "Native",
+          "footer.copy": "© 2026 · Front-end Developer",
+          "hero.name.first": "Vsevolod",
+          "hero.name.last": "Leonov",
+        },
+      };
+
+      function applyLang(lang) {
+        document.documentElement.lang = lang;
+        const t = T[lang];
+        document.querySelectorAll("[data-i18n]").forEach((el) => {
+          const v = t[el.getAttribute("data-i18n")];
+          if (v !== undefined) el.innerHTML = v;
+        });
+        document
+          .querySelectorAll(".lang-btn")
+          .forEach((b) =>
+            b.classList.toggle("active", b.dataset.lang === lang),
+          );
+      }
+
+      document
+        .querySelectorAll(".lang-btn")
+        .forEach((b) =>
+          b.addEventListener("click", () => applyLang(b.dataset.lang)),
+        );
+
+      const navbar = document.getElementById("navbar");
+      window.addEventListener("scroll", () =>
+        navbar.classList.toggle("scrolled", window.scrollY > 40),
+      );
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("visible");
+              observer.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.12, rootMargin: "0px 0px -40px 0px" },
+      );
+      document
+        .querySelectorAll(".reveal")
+        .forEach((el) => observer.observe(el));
+
+      document.querySelectorAll('a[href^="#"]').forEach((a) => {
+        a.addEventListener("click", (e) => {
+          const t = document.querySelector(a.getAttribute("href"));
+          if (t) {
+            e.preventDefault();
+            t.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
