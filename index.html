@@ -697,27 +697,26 @@
         position: absolute;
         top: 14px;
         left: 14px;
-        padding: 5px 11px; /* чуть больше отступов */
-        font-size: 11px; /* было 10 → чуть читаемее */
-        font-weight: 700; /* было 600 → жирнее */
+        padding: 5px 11px;
+        font-size: 11px;
+        font-weight: 700;
         letter-spacing: 0.6px;
         text-transform: uppercase;
-        border-radius: 4px; /* чуть мягче углы */
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4); /* лёгкая тень → отрывает от фона */
-        z-index: 2; /* на всякий случай выше картинки */
+        border-radius: 4px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+        z-index: 2;
+        opacity: 1;
       }
 
-      /* Коммерческий */
       .badge-commercial {
-        background: rgba(79, 142, 247, 0.38); /* было 0.2 → заметнее */
-        color: #d0e4ff; /* светлее белого, но не чисто белый */
+        background: rgba(79, 142, 247, 1);
+        color: #d0e4ff;
         border: 1px solid rgba(79, 142, 247, 0.55);
       }
 
-      /* Пет-проект */
       .badge-pet {
-        background: rgba(107, 200, 138, 0.35); /* было 0.15 → ярче */
-        color: #e0ffe6; /* очень светлый зелёный */
+        background: rgba(107, 200, 138, 1);
+        color: #e0ffe6;
         border: 1px solid rgba(107, 200, 138, 0.5);
       }
       .project-body {
@@ -1250,6 +1249,8 @@
               <span class="skill-tag">Prettier</span>
               <span class="skill-tag">ESLint</span>
               <span class="skill-tag">VS Code</span>
+              <span class="skill-tag">i18n</span>
+              <span class="skill-tag">Figma</span>
             </div>
           </div>
           <div class="skill-group reveal reveal-delay-4">
